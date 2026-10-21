@@ -8,6 +8,11 @@ This project uses flight-related features to estimate ticket fares. Users can en
 
 **Note:** Predictions are estimates based on the available training data. They are not live airline prices.
 
+## Live Demo
+
+Try the application here:
+https://flight-fare-prediction-qb3btfdwzcnxafen8wttqj.streamlit.app/
+
 ## Features
 
 - Interactive Streamlit web application
