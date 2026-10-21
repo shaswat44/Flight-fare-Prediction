@@ -1,7 +1,15 @@
+# Python environment and cache
 .venv/
 __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
+
+# Environment variables and secrets
 .env
 .streamlit/secrets.toml
+
+# Trained models
 models/
+
+# Dataset
+data/
