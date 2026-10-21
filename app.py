@@ -1,11 +1,9 @@
-
 from pathlib import Path
 
 import joblib
 import pandas as pd
 import streamlit as st
-
-
+from huggingface_hub import hf_hub_download
 # =========================================================
 # 1. APP CONFIGURATION
 # =========================================================
@@ -17,15 +15,32 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-
 # =========================================================
-# 2. PROJECT PATHS
+# 2. LOAD MODEL AND DATASET FROM HUGGING FACE
 # =========================================================
 
-BASE_DIR = Path(__file__).resolve().parent
-DATA_PATH = BASE_DIR / "data" / "Freshly_cleaned.csv"
-MODEL_PATH = BASE_DIR / "models" / "flight_price_model.pkl"
+HF_REPO_ID = "shaswat44/flight-price-prediction-files"
 
+@st.cache_resource
+def load_model():
+    model_path = hf_hub_download(
+        repo_id=HF_REPO_ID,
+        filename="flight_price_model.pkl",
+        repo_type="model",
+        token=st.secrets["HF_TOKEN"],
+    )
+    return joblib.load(model_path)
+
+
+@st.cache_data
+def load_data():
+    data_path = hf_hub_download(
+        repo_id=HF_REPO_ID,
+        filename="Freshly_cleaned.csv",
+        repo_type="model",
+        token=st.secrets["HF_TOKEN"],
+    )
+    return pd.read_csv(data_path)
 # =========================================================
 # 3. PREMIUM AEROFARE STYLING
 # =========================================================
@@ -400,25 +415,11 @@ st.markdown(
 # 4. LOAD EXISTING MODEL AND DATASET
 # =========================================================
 
-@st.cache_resource
-def load_model():
-    return joblib.load(MODEL_PATH)
-
-
-@st.cache_data
-def load_data():
-    return pd.read_csv(DATA_PATH)
-
-
 try:
     model = load_model()
     df = load_data()
 except Exception as error:
     st.error(f"Could not load the model or dataset: {error}")
-    st.info(
-        "Check that app.py, data/Freshly_cleaned.csv, and "
-        "models/flight_price_model.pkl are in the expected locations."
-    )
     st.stop()
 
 
