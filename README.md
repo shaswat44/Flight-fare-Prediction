@@ -33,6 +33,20 @@ https://flight-fare-prediction-qb3btfdwzcnxafen8wttqj.streamlit.app/
 - **Model Serialization:** Joblib
 - **Notebook:** Jupyter Notebook
 
+📦 Model & Dataset Downloads
+
+The trained machine learning model and processed dataset are hosted on Hugging Face Hub so that reviewers can access the project files without downloading them from this GitHub repository.
+
+Open Model & Dataset Repository on Hugging Face
+
+Expected files:
+
+flight_price_model.pkl — trained Random Forest Regression pipeline
+
+Freshly_cleaned.csv — processed flight fare dataset
+
+Open the repository above to view and download the files. Confirm the exact filenames and their availability before running the project.
+
 ## Model Performance
 
 The existing test evaluation reported the following metrics:
